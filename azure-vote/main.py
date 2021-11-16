@@ -23,24 +23,6 @@ from opencensus.trace.samplers import ProbabilitySampler
 from opencensus.trace.tracer import Tracer
 from opencensus.ext.flask.flask_middleware import FlaskMiddleware
 
-<<<<<<< Updated upstream
-# For metrics
-stats = stats_module.stats
-view_manager = stats.view_manager
-
-config_integration.trace_integrations(['logging'])
-config_integration.trace_integrations(['requests'])
-
-# Logging
-logger = logging.getLogger(__name__)
-handler = AzureLogHandler(connection_string='InstrumentationKey=InstrumentationKey=4a04f46c-acd9-4b54-ada9-7e7e543e04dd;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/')
-handler.setFormatter(logging.Formatter('%(traceId)s %(spanId)s %(message)s'))
-logger.addHandler(handler)
-# Logging custom Events 
-logger.addHandler(AzureEventHandler(connection_string='InstrumentationKey=InstrumentationKey=4a04f46c-acd9-4b54-ada9-7e7e543e04dd;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/'))
-# Set the logging level
-logger.setLevel(logging.INFO) # TODO: Setup logger
-=======
 
 
 
@@ -54,48 +36,28 @@ logger.addHandler(AzureEventHandler(connection_string='InstrumentationKey=792a95
 # Set the logging level
 logger.setLevel(logging.INFO)
 
->>>>>>> Stashed changes
 
 # Metrics
 exporter = metrics_exporter.new_metrics_exporter(
 enable_standard_metrics=True,
-<<<<<<< Updated upstream
-connection_string='InstrumentationKey=InstrumentationKey=4a04f46c-acd9-4b54-ada9-7e7e543e04dd;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/')
-view_manager.register_exporter(exporter) # TODO: Setup exporter
-
-=======
 connection_string='InstrumentationKey=792a95b1-b7a5-4f8f-bbb5-99e012f06618')
 view_manager.register_exporter(exporter)
->>>>>>> Stashed changes
 
 # Tracing
 tracer = Tracer(
  exporter=AzureExporter(
-<<<<<<< Updated upstream
-     connection_string='InstrumentationKey=InstrumentationKey=4a04f46c-acd9-4b54-ada9-7e7e543e04dd;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/'),
- sampler=ProbabilitySampler(1.0),
-) # TODO: Setup tracer
-
-=======
      connection_string='InstrumentationKey=792a95b1-b7a5-4f8f-bbb5-99e012f06618'),
  sampler=ProbabilitySampler(1.0),
 )
->>>>>>> Stashed changes
 app = Flask(__name__)
 
 
 # Requests
 middleware = FlaskMiddleware(
  app,
-<<<<<<< Updated upstream
- exporter=AzureExporter(connection_string="InstrumentationKey=InstrumentationKey=4a04f46c-acd9-4b54-ada9-7e7e543e04dd;IngestionEndpoint=https://westus2-2.in.applicationinsights.azure.com/"),
- sampler=ProbabilitySampler(rate=1.0)
-) # TODO: Setup flask middleware
-=======
  exporter=AzureExporter(connection_string="InstrumentationKey=792a95b1-b7a5-4f8f-bbb5-99e012f06618"),
  sampler=ProbabilitySampler(rate=1.0)
 )
->>>>>>> Stashed changes
 
 # Load configurations from environment or config file
 app.config.from_pyfile('config_file.cfg')
@@ -178,10 +140,6 @@ def index():
 
 if __name__ == "__main__":
     # comment line below when deploying to VMSS
-<<<<<<< Updated upstream
-    #app.run() # local
-=======
     # app.run() # local
->>>>>>> Stashed changes
     # uncomment the line below before deployment to VMSS
     app.run(host='0.0.0.0', threaded=True, debug=True) # remote
